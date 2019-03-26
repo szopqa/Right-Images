@@ -7,7 +7,6 @@ int main()
 {
     ImageReader reader("../input_img");
     Image *img = reader.readImage("../input_img/img_3x3.jpg");
-    std::cout << img->getInfo() << std::endl;
    
     // Saving image data
     unsigned char* imageData = img->getData();
@@ -30,16 +29,19 @@ int main()
             int b = (int)pixImg[2];
             int a = img->getComponentsPerPixel() > 3 ? (int)pixImg[3] : 0;
             imgRows[y][x] = Pixel(x, y, r, g, b, a);
-	    std::cout << "Size of each pixel in bytes: " << sizeof(imgRows[x][y]) << std::endl;
         }
     }
+    std::cout << "Done!" << std::endl;
+
+    Pixel* p1 = img->getSpecificPixel(3, 3);
+    p1->getInfo();
 
     // Getting each pixel info
-    for(unsigned int y = 0; y < img->getHeight(); y ++)
-    {
-        for(unsigned int x = 0; x < img->getWidth(); x ++)
-        {
-            imgRows[y][x].getInfo();
-        }
-    }
+    //for(unsigned int y = 0; y < img->getHeight(); y ++)
+    //{
+    //    for(unsigned int x = 0; x < img->getWidth(); x ++)
+    //    {
+    //        imgRows[y][x].getInfo();
+    //    }
+    //}
 }
