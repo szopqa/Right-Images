@@ -12,6 +12,7 @@ private:
     int nrChannels;
     // number of interleaved 8-bit components per pixel
     int componentsPerPixel;
+    Pixel** imageMatrix;
 public:
     Image(unsigned char *, int, int, int, int);
     ~Image(/* args */);
@@ -22,6 +23,7 @@ public:
     int getComponentsPerPixel();
     unsigned char* getData();
     Pixel* getSpecificPixel(unsigned int x, unsigned int y);
+    Pixel** getImageInMatrixRepresentation();
 };
 
 Image::Image(unsigned char *imageData, int imageWidth, int imageHeight, int nrChannels, int c_p_p)
@@ -51,7 +53,7 @@ unsigned char* Image::getData() { return this->data; }
 
 Pixel* Image::getSpecificPixel(unsigned int x, unsigned int y)
 {
-    if(x < 0 || y < 0 || x > this->getWidth() || y > this->getHeight())
+    if(x <= 0 || y <= 0 || x > this->getWidth() || y > this->getHeight())
     {
         throw std::invalid_argument( "Invalid input value error" );
     };
@@ -65,4 +67,34 @@ Pixel* Image::getSpecificPixel(unsigned int x, unsigned int y)
     int a = this->getComponentsPerPixel() > 3 ? (int)selectedPixData[3] : 0;
 
     return new Pixel(x, y, r, g, b, a);
+}
+
+Pixel** Image::getImageInMatrixRepresentation()
+{
+    if (this->imageMatrix != nullptr)
+    {
+        return this->imageMatrix;
+    }
+
+    // Image memory allocation
+    this->imageMatrix = new Pixel* [this->height];	
+    for(unsigned int y = 0; y < this->width; y ++)
+    {
+    	this->imageMatrix[y] = new Pixel[this->width];
+    }
+
+    for(unsigned int y = 0; y < this->height; y ++)
+    {
+        for(unsigned int x = 0; x < this->width; x ++)
+        {
+	    unsigned char* pixImg = this->data + this->componentsPerPixel * x + y * this->width * this->componentsPerPixel;
+            int r = (int)pixImg[0];
+            int g = (int)pixImg[1];
+            int b = (int)pixImg[2];
+            int a = this->componentsPerPixel > 3 ? (int)pixImg[3] : 0;
+            this->imageMatrix[y][x] = Pixel(x, y, r, g, b, a);
+        }
+    }
+
+    return this->imageMatrix;
 }
