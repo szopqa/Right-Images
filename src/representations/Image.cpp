@@ -27,7 +27,10 @@ public:
 };
 
 Image::Image(unsigned char *imageData, int imageWidth, int imageHeight, int nrChannels, int c_p_p)
-    : data(imageData), width(imageWidth), height(imageHeight), nrChannels(nrChannels), componentsPerPixel(c_p_p) {}
+    : data(imageData), width(imageWidth), height(imageHeight), nrChannels(nrChannels), componentsPerPixel(c_p_p) 
+{
+    this->imageMatrix = nullptr;
+}
 
 //The return value from an image loader is an 'unsigned char *' which points
 // to the pixel data, or NULL on an allocation failure or if the image is
@@ -88,18 +91,20 @@ Pixel** Image::getImageInMatrixRepresentation()
     this->imageMatrix = new Pixel* [this->height];	
     for(unsigned int y = 0; y < this->width; y ++)
     {
-    	this->imageMatrix[y] = new Pixel[this->width];
+        this->imageMatrix[y] = new Pixel[this->width];
     }
 
     for(unsigned int y = 0; y < this->height; y ++)
     {
         for(unsigned int x = 0; x < this->width; x ++)
         {
-	    unsigned char* pixImg = this->data + this->componentsPerPixel * x + y * this->width * this->componentsPerPixel;
+	        unsigned char* pixImg = this->data + this->componentsPerPixel * x + y * this->width * this->componentsPerPixel;
+
             int r = (int)pixImg[0];
             int g = (int)pixImg[1];
             int b = (int)pixImg[2];
             int a = this->componentsPerPixel > 3 ? (int)pixImg[3] : 0;
+            
             this->imageMatrix[y][x] = Pixel(x, y, r, g, b, a);
         }   
     }

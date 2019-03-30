@@ -13,6 +13,9 @@ int main()
    
     // getting image example data
     img->getSpecificPixel(2,2)->getInfo();
+    
+    Pixel** imageFrame = img->getImageInMatrixRepresentation();
+    imageFrame[2][2].getInfo();
 
     FsReader fsReader(imagesDir);
 
