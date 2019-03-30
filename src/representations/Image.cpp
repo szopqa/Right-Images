@@ -15,7 +15,7 @@ private:
     Pixel** imageMatrix;
 public:
     Image(unsigned char *, int, int, int, int);
-    ~Image(/* args */);
+    ~Image();
     
     std::string getInfo();
     int getWidth();
@@ -37,7 +37,20 @@ Image::Image(unsigned char *imageData, int imageWidth, int imageHeight, int nrCh
 Image::~Image()
 {
     stbi_image_free(data);
+    if(this->imageMatrix != nullptr) 
+    {
+        for( int i = 0 ; i < this->height ; i++ )   
+        {
+            delete[] this->imageMatrix[i];
+        }
+        delete[] this->imageMatrix;
+    }
 }
+
+int Image::getWidth() { return this->width; }
+int Image::getHeight() { return this->height; }
+int Image::getComponentsPerPixel() { return this->componentsPerPixel; }
+unsigned char* Image::getData() { return this->data; }
 
 std::string Image::getInfo()
 {
@@ -45,11 +58,6 @@ std::string Image::getInfo()
     ss << "Data addr: " << &data << " width: " << width << " height: " << height << " nrChan: " << nrChannels << " c_p_p: " << componentsPerPixel << std::endl;
     return ss.str();
 }
-
-int Image::getWidth() { return this->width; }
-int Image::getHeight() { return this->height; }
-int Image::getComponentsPerPixel() { return this->componentsPerPixel; }
-unsigned char* Image::getData() { return this->data; }
 
 Pixel* Image::getSpecificPixel(unsigned int x, unsigned int y)
 {
@@ -93,7 +101,7 @@ Pixel** Image::getImageInMatrixRepresentation()
             int b = (int)pixImg[2];
             int a = this->componentsPerPixel > 3 ? (int)pixImg[3] : 0;
             this->imageMatrix[y][x] = Pixel(x, y, r, g, b, a);
-        }
+        }   
     }
 
     return this->imageMatrix;
