@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <sstream>
-#include "../Pixel.cpp"
+#include "Pixel.cpp"
 
 class Image
 {

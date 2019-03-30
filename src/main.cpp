@@ -1,7 +1,7 @@
 #include <iostream>
 #include <typeinfo>
 #include "ImageReader.cpp"
-#include "Pixel.cpp"
+#include "./representations/Pixel.cpp"
 #include "./file_system/FsReader.cpp"
 
 const std::string imagesDir = "/home/mszopa/Desktop/right_images/input_img/";
