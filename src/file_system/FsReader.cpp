@@ -24,31 +24,36 @@ Iterator<fs::path>* FsReader::getIterator()
 	{
 	private:
 		fs::path workingPath;
-		fs::directory_entry workingDir;
+		fs::directory_iterator dir_iterator;
 
-		int num;
+		bool processedAllFiles;
 	public:
 		FsIterator(std::string workingPath)
 		{
-			this->num = 0;
+			this->processedAllFiles = false;
 			
 			this->workingPath = workingPath;
-			this->workingDir = fs::directory_entry(this->workingPath);
-			std::cout << "FS Iterator set up at : " << this->workingDir << std::endl;
+			this->dir_iterator = fs::directory_iterator(this->workingPath);
+			this->currentElement = dir_iterator->path();
+			std::cout << "[DEBUG]: FS Iterator set up at : " << this->workingPath << std::endl;
 		}
 
 		fs::path getNext() override
 		{
-			std::cout << "Getting next el! Current val : " << this->num<<std::endl; 
-			this->num += 1;
-			return this->workingPath;
+			try {
+				fs::directory_entry dir = *this->dir_iterator;
+				this->currentElement = dir.path();
+				std::cout<< "Current path: " << this->currentElement << std::endl;
+			
+				++this->dir_iterator;
+			} catch (const fs::filesystem_error& e) {
+				this->processedAllFiles = true;
+			}
+
+			return this->currentElement;
 		}
 		
-		bool hasNext() override
-		{
-			std::cout << "Checkin" << std::endl;
-			return this->num  < 5;
-		}	
+		bool hasNext() override { return !this->processedAllFiles; }
 	};
 
 	return new FsIterator(this->workingPath);

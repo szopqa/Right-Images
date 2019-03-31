@@ -3,7 +3,7 @@
 template <typename T>
 class Iterator
 {
-private:
+protected:
   T currentElement;
 public:
   virtual T getNext() = 0;
