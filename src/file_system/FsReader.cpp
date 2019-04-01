@@ -35,7 +35,7 @@ Iterator<fs::path>* FsReader::getIterator()
 			this->workingPath = workingPath;
 			this->dir_iterator = fs::directory_iterator(this->workingPath);
 			this->currentElement = dir_iterator->path();
-			std::cout << "[DEBUG]: FS Iterator set up at : " << this->workingPath << std::endl;
+			std::cout << "[DEBUG]: FS Iterator set up at : " << this->workingPath << std::endl << std::endl;
 		}
 
 		fs::path getNext() override

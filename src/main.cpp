@@ -8,22 +8,18 @@ const std::string imagesDir = "/home/mszopa/Desktop/right_images/input_img/";
 
 int main()
 {
-    ImageReader reader("../input_img");
-    Image *img = reader.readImage("../input_img/img.jpg");
-   
-    // getting image example data
-    img->getSpecificPixel(2,2)->getInfo();
-    
-    Pixel** imageFrame = img->getImageInMatrixRepresentation();
-    imageFrame[2][2].getInfo();
-
+    ImageReader reader;
     FsReader fsReader(imagesDir);
 
     Iterator<fs::path>* fsIterator = fsReader.getIterator();
 
     while(fsIterator->hasNext())
     {
-        fsIterator->getNext();
+        fs::path image_path = fsIterator->getNext();
+        Image *img = reader.readImage(image_path.string());
+        img->getSpecificPixel(2,2)->getInfo();
+        delete img;
     }
+    delete fsIterator;
 }
 

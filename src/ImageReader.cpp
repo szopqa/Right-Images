@@ -18,6 +18,8 @@ public:
     Image *readImage(std::string);
 };
 
+ImageReader::ImageReader() {}
+
 ImageReader::ImageReader(std::string imagesDir)
     :imagesDir(imagesDir) {}
 
@@ -27,7 +29,9 @@ ImageReader::~ImageReader()
 
 Image *ImageReader::readImage(std::string imagePath)
 {
+    std::string imageLocation = this->imagesDir.empty() ? imagePath : this->imagesDir + imagePath;
+
     int width, height, nrChannels;
-    unsigned char *imageData = stbi_load(imagePath.c_str(), &width, &height, &nrChannels, RGB);
+    unsigned char *imageData = stbi_load(imageLocation.c_str(), &width, &height, &nrChannels, RGB);
     return new Image(imageData, width, height, nrChannels, RGB);
 }
