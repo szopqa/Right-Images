@@ -23,6 +23,7 @@ public:
     int getComponentsPerPixel();
     unsigned char* getData();
     Pixel* getSpecificPixel(unsigned int x, unsigned int y);
+    unsigned char* getSpecificRawPixel(unsigned int x, unsigned int y);
     Pixel** getImageInMatrixRepresentation();
 };
 
@@ -66,7 +67,7 @@ Pixel* Image::getSpecificPixel(unsigned int x, unsigned int y)
 {
     if(x <= 0 || y <= 0 || x > this->getWidth() || y > this->getHeight())
     {
-        throw std::invalid_argument( "Invalid input value error" );
+        throw std::invalid_argument( "Invalid input value error for getSpecificPixel" );
     };
     unsigned short int valuesPerRow = this->width * this->componentsPerPixel;
     unsigned char* selectedRow = this->data + (y - 1) * valuesPerRow;
@@ -78,6 +79,19 @@ Pixel* Image::getSpecificPixel(unsigned int x, unsigned int y)
     int a = this->getComponentsPerPixel() > 3 ? (int)selectedPixData[3] : 0;
 
     return new Pixel(x, y, r, g, b, a);
+}
+
+unsigned char* Image::getSpecificRawPixel(unsigned int x, unsigned int y)
+{
+    if(x <= 0 || y <= 0 || x > this->getWidth() || y > this->getHeight())
+    {
+        throw std::invalid_argument( "Invalid input value error for getSpecificRawPixel" );
+    };
+    unsigned short int valuesPerRow = this->width * this->componentsPerPixel;
+    unsigned char* selectedRow = this->data + (y - 1) * valuesPerRow;
+    unsigned char* selectedPixData = selectedRow + this->componentsPerPixel * (x - 1);
+
+    return selectedPixData;
 }
 
 Pixel** Image::getImageInMatrixRepresentation()
