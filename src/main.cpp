@@ -1,10 +1,10 @@
 #include <iostream>
 #include <typeinfo>
-#include "ImageReader.cpp"
-#include "./representations/Pixel.cpp"
-#include "./file_system/FsReader.cpp"
+#include "ImageReader.h"
+#include "./representations/Pixel.h"
+#include "./file_system/FsReader.h"
 
-#include "./portable_anymap/PortableAnymapImagesFactory.cpp"
+#include "./portable_anymap/PortableAnymapImagesFactory.h"
 
 const std::string imagesDir = "/home/mszopa/Desktop/right_images/input_img/";
 
@@ -31,8 +31,8 @@ int main()
     */
 
     ImageReader reader(imagesDir);
-    Image *img = reader.readImage("img_3x3.jpg");
+    Image *img = reader.readImage("img.jpg");
 
     PortableAnymapImagesFactory pixMapImage;
-    pixMapImage.saveImage(img, "test_image");
+    pixMapImage.saveImage(img, "img");
 }

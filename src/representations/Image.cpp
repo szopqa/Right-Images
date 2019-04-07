@@ -1,31 +1,4 @@
-#pragma once
-#include <iostream>
-#include <sstream>
-#include "Pixel.cpp"
-
-class Image
-{
-private:
-    unsigned char *data;
-    int width;
-    int height;
-    int nrChannels;
-    // number of interleaved 8-bit components per pixel
-    int componentsPerPixel;
-    Pixel** imageMatrix;
-public:
-    Image(unsigned char *, int, int, int, int);
-    ~Image();
-    
-    std::string getInfo();
-    int getWidth();
-    int getHeight();
-    int getComponentsPerPixel();
-    unsigned char* getData();
-    Pixel* getSpecificPixel(unsigned int x, unsigned int y);
-    unsigned char* getSpecificRawPixel(unsigned int x, unsigned int y);
-    Pixel** getImageInMatrixRepresentation();
-};
+#include "Image.h"
 
 Image::Image(unsigned char *imageData, int imageWidth, int imageHeight, int nrChannels, int c_p_p)
     : data(imageData), width(imageWidth), height(imageHeight), nrChannels(nrChannels), componentsPerPixel(c_p_p) 
@@ -40,7 +13,7 @@ Image::Image(unsigned char *imageData, int imageWidth, int imageHeight, int nrCh
 // pixel pointed to is top-left-most in the image.
 Image::~Image()
 {
-    stbi_image_free(data);
+    // stbi_image_free(data); TODO: Fix usage of stbi_image_free
     if(this->imageMatrix != nullptr) 
     {
         for( int i = 0 ; i < this->height ; i++ )   

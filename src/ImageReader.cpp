@@ -1,22 +1,9 @@
-#pragma once
-#include <iostream>
+#include "ImageReader.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "./external/stb_image.h"
-#include "./representations/Image.cpp"
 
 #define RGB 3
-
-class ImageReader
-{
-private:
-    std::string imagesDir;
-public:
-    ImageReader();
-    ImageReader(std::string);
-    ~ImageReader();
-
-    Image *readImage(std::string);
-};
 
 ImageReader::ImageReader() {}
 

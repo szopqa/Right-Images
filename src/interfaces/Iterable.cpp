@@ -1,5 +1,4 @@
-#pragma once
-#include "Iterator.cpp"
+#include "Iterator.h"
 
 template <typename T>
 class Iterable

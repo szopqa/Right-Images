@@ -1,17 +1,4 @@
-#pragma once
-#include <fstream>
-#include "string"
-#include "../representations/Image.cpp"
-#include "./PortablePixMap.cpp"
-#include "./PortableGrayMap.cpp"
-
-class PortableAnymapImagesFactory 
-{
-private:
-public:
-  void saveImage(Image*, std::string);
-  PortableAnymapImage* createAnymapImage(Image*);
-};
+#include "PortableAnymapImagesFactory.h"
 
 PortableAnymapImage* PortableAnymapImagesFactory::createAnymapImage(Image* imageRepresentation)
 {

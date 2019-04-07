@@ -1,17 +1,8 @@
-#pragma once
-#include "string"
-#include "PortableAnymapImage.cpp"
+#include "PortablePixMap.h"
 
 #define PIXMAP_MAGIC_NUMBER "P3";
 #define PIXMAP_COLORS 255;
 #define PIXMAP_FILE_EXTENSION "ppm";
-
-class PortablePixMap: public PortableAnymapImage
-{
-public: 
-  PortablePixMap();
-  ~PortablePixMap();
-};
 
 PortablePixMap::PortablePixMap()
 {
