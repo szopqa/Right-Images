@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include <stdexcept>
 #include "string"
 
 #include "../representations/Image.h"
