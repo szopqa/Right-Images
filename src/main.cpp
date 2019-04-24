@@ -1,8 +1,12 @@
 #include <iostream>
 #include <typeinfo>
-#include "ImageReader.h"
+#include <cstdlib>
+#include <ctime>
+
+#include "./images_reader/ImageReader.h"
 #include "./representations/Pixel.h"
 #include "./file_system/FsReader.h"
+#include "./images_reader/ImagesReader.h"
 
 #include "./portable_anymap/PortableAnymapImagesFactory.h"
 
@@ -10,29 +14,23 @@ const std::string imagesDir = "/home/mszopa/Desktop/right_images/input_img/";
 
 int main()
 {
-    /* WITH FS_ITERATOR USAGE
-    
-    ImageReader reader;
-    FsReader fsReader(imagesDir);
-    Iterator<fs::path>* fsIterator = fsReader.getIterator();
-    while(fsIterator->hasNext())
+    srand(time(NULL));
+    PortableAnymapImagesFactory pixMapImage;   
+
+    ImagesReader imagesReader(imagesDir);
+    Iterator<Image*>* imagesIterator = imagesReader.getIterator();
+    while(imagesIterator->hasNext())
     {
-        fs::path image_path = fsIterator->getNext();
-        Image *img = reader.readImage(image_path.string());
-        img->getSpecificPixel(2,2)->getInfo();
-    
-        PortablePixMap pixMapImage;
-        pixMapImage.fromImage(img);
-
-        delete img;
+        Image *image = imagesIterator->getNext();
+        if(image)
+        {
+            image->getSpecificPixel(2,2)->getInfo();
+            std::string imageName = "img_" + std::to_string(std::rand());
+            pixMapImage.saveImage(image, imageName);
+            delete image;
+        }
     }
-    delete fsIterator;
+    delete imagesIterator;
     
-    */
-
-    ImageReader reader(imagesDir);
-    Image *img = reader.readImage("img.jpg");
-
-    PortableAnymapImagesFactory pixMapImage;
-    pixMapImage.saveImage(img, "img");
+    return 0;
 }

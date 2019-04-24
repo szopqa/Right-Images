@@ -16,9 +16,10 @@ PortableAnymapImage* PortableAnymapImagesFactory::createAnymapImage(Image* image
 
 void PortableAnymapImagesFactory::saveImage(Image* imageRepresentation, std::string pathToSave)
 {
+  std::cout << "Saving " + pathToSave;
   PortableAnymapImage* portableImage = this->createAnymapImage(imageRepresentation);
   
-  std::string imageFilename = pathToSave + "." +  portableImage->getImageExtension();
+  std::string imageFilename = pathToSave + "." + portableImage->getImageExtension();
 
   std::ofstream imageFile(imageFilename);
   imageFile << portableImage->fromImage(imageRepresentation);
