@@ -1,10 +1,10 @@
 #pragma once
 #include <experimental/filesystem>
-#include "../../interfaces/Iterator.h"
-#include "../../interfaces/Iterable.cpp"
+#include "../../iterators/Iterator.h"
+#include "../../iterators/Iterable.cpp"
 #include "../../representations/Image.h"
 #include "../../file_system/FsReader.h"
-#include "../../ImageReader.h"
+#include "../../images_reader/ImageReader.h"
 
 namespace fs = std::experimental::filesystem;
 
