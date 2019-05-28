@@ -10,6 +10,7 @@ class ImagesReader: public Iterable<Image*>
 private:
     std::string workingDir;
 public:
+    ImagesReader();
     ImagesReader(std::string);
 
     Iterator<Image*>* getIterator() override;

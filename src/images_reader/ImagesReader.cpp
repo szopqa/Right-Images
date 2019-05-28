@@ -3,6 +3,8 @@
 ImagesReader::ImagesReader(std::string workingDir) 
     : workingDir(workingDir) {}
 
+ImagesReader::ImagesReader() {}
+
 Iterator<Image*>* ImagesReader::getIterator()
 {
     class ImagesIterator: public Iterator<Image*>

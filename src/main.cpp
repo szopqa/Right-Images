@@ -10,27 +10,18 @@
 
 #include "./portable_anymap/PortableAnymapImagesFactory.h"
 
+#include "./images_processors/ImagesProcessorFactory.h"
+#include "./images_processors/ImageProcessorsEnum.h"
+
 const std::string imagesDir = "/home/mszopa/Desktop/right_images/input_img/";
 
 int main()
 {
-    srand(time(NULL));
-    PortableAnymapImagesFactory pixMapImage;   
-
     ImagesReader imagesReader(imagesDir);
-    Iterator<Image*>* imagesIterator = imagesReader.getIterator();
-    while(imagesIterator->hasNext())
-    {
-        Image *image = imagesIterator->getNext();
-        if(image)
-        {
-            image->getSpecificPixel(2,2)->getInfo();
-            std::string imageName = "img_" + std::to_string(std::rand());
-            pixMapImage.saveImage(image, imageName);
-            delete image;
-        }
-    }
-    delete imagesIterator;
+    ImageProcessorsEnum comparator = ImageProcessorsEnum::NEIGHBORING_IMAGES_COMPARATOR;
+    ImagesProcessor* imagesComparator = ImagesProcessorFactory().createProcessor(comparator, imagesReader);
+ 
+    imagesComparator->processImages(imagesDir);
     
     return 0;
 }

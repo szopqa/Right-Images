@@ -1,5 +1,6 @@
 #pragma once
 #include "string"
+#include "../images_reader/ImagesReader.h"
 
 class ImagesProcessor
 {

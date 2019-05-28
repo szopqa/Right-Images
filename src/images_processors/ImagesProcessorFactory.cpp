@@ -1,16 +1,11 @@
 #include "./ImagesProcessorFactory.h"
 
-ImagesProcessorFactory::ImagesProcessorFactory() 
-{ 
-  
-}
-
-ImagesProcessor* ImagesProcessorFactory::createProcessor(ImageProcessors chosenProcessor)
+ImagesProcessor* ImagesProcessorFactory::createProcessor(ImageProcessorsEnum chosenProcessor, ImagesReader imagesReader)
 {
   switch (chosenProcessor)
   {
-  case NEIGHBORING_IMAGES_COMPARATOR:
-    return new ImagesComparator();
+  case ImageProcessorsEnum::NEIGHBORING_IMAGES_COMPARATOR:
+    return new ImagesComparator(imagesReader);
   
   default:
     throw std::invalid_argument("Unhandled image processor.");
