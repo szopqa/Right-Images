@@ -1,7 +1,7 @@
 #include "Image.h"
 
-Image::Image(unsigned char *imageData, int imageWidth, int imageHeight, int nrChannels, int c_p_p)
-    : data(imageData), width(imageWidth), height(imageHeight), nrChannels(nrChannels), componentsPerPixel(c_p_p) 
+Image::Image(unsigned char *imageData, int imageWidth, int imageHeight, int nrChannels, int c_p_p, std::string imagePath)
+    : data(imageData), width(imageWidth), height(imageHeight), nrChannels(nrChannels), componentsPerPixel(c_p_p), imagePath(imagePath)
 {
     this->imageMatrix = nullptr;
 }
@@ -32,7 +32,12 @@ unsigned char* Image::getData() { return this->data; }
 std::string Image::getInfo()
 {
     std::stringstream ss;
-    ss << "Data addr: " << &data << " width: " << width << " height: " << height << " nrChan: " << nrChannels << " c_p_p: " << componentsPerPixel << std::endl;
+    ss << "Data addr: " << &data 
+            << " width: " << width 
+                << " height: " << height 
+                    << " nrChan: " << nrChannels 
+                        << " c_p_p: " << componentsPerPixel 
+                            <<" imagePath: " << imagePath << std::endl;
     return ss.str();
 }
 

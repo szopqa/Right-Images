@@ -5,17 +5,33 @@ ImagesComparator::ImagesComparator(ImagesReader imagesReader)
     this->imagesReader = imagesReader;
 }
 
-void ImagesComparator::processImages(std::string imagesDirectory)
-{    
+void ImagesComparator::processImages() 
+{
     Iterator<Image*>* imagesIterator = imagesReader.getIterator();
+
+    Image* imageA = nullptr;
+    Image* imageB = nullptr;
+
     while(imagesIterator->hasNext())
     {
-        Image *image = imagesIterator->getNext();
-        if(image)
+        imageA = imageB ? imageB : imagesIterator->getNext();
+        if(imageA)
         {
-            image->getSpecificPixel(2,2)->getInfo();
-            delete image;
+            if(imagesIterator->hasNext())
+            {
+                imageB = imagesIterator->getNext();
+            }
+
+            // Images comparison logic should be implemented here
+            if (imageA && imageB)
+            {
+                std::cout << "Comparing images: \n" << "\t" << imageA->getInfo() << "\n" << "with:\n" << "\t" << imageB->getInfo() << std::endl;
+            }
         }
     }
+
+    delete imageA;
+    delete imageB;
+
     delete imagesIterator;
 }

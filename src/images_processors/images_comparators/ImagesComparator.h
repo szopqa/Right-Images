@@ -8,7 +8,8 @@ private:
   ImagesReader imagesReader;
 
 public:
+  void compare();
   ImagesComparator(ImagesReader imagesReader);
 
-  void processImages(std::string imagesDirectory) override;
+  void processImages() override;
 };

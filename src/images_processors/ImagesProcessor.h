@@ -7,5 +7,5 @@ class ImagesProcessor
 private:
 public:
   // TODO: change function to return object implementing ProcessingResults interface
-  virtual void processImages(std::string imagesDirectory) = 0;
+  virtual void processImages() = 0;
 };

@@ -13,6 +13,7 @@
 #include "./images_processors/ImagesProcessorFactory.h"
 #include "./images_processors/ImageProcessorsEnum.h"
 
+// const std::string imagesDir = "/home/mszopa/Pictures";
 const std::string imagesDir = "/home/mszopa/Desktop/right_images/input_img/";
 
 int main()
@@ -21,7 +22,7 @@ int main()
     ImageProcessorsEnum comparator = ImageProcessorsEnum::NEIGHBORING_IMAGES_COMPARATOR;
     ImagesProcessor* imagesComparator = ImagesProcessorFactory().createProcessor(comparator, imagesReader);
  
-    imagesComparator->processImages(imagesDir);
+    imagesComparator->processImages();
     
     return 0;
 }

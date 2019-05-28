@@ -13,9 +13,10 @@ private:
     int nrChannels;
     // number of interleaved 8-bit components per pixel
     int componentsPerPixel;
+    std::string imagePath;
     Pixel** imageMatrix;
 public:
-    Image(unsigned char *, int, int, int, int);
+    Image(unsigned char *, int, int, int, int, std::string);
     ~Image();
     
     std::string getInfo();

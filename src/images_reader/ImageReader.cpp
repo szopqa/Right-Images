@@ -22,5 +22,5 @@ Image *ImageReader::readImage(std::string imagePath)
 
     int width, height, nrChannels;
     unsigned char *imageData = stbi_load(imageLocation.c_str(), &width, &height, &nrChannels, RGB);
-    return new Image(imageData, width, height, nrChannels, RGB);
+    return new Image(imageData, width, height, nrChannels, RGB, imagePath);
 }
